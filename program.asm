@@ -12,7 +12,7 @@ msg_len equ $ - msg
 _start:
     call alloc_init
 
-    mov rdi, 5 ; 4 bytes
+    mov rdi, 5 ; 5 bytes
     call alloc
     lea rdi, [rax]
     mov byte [rdi], 'A'
