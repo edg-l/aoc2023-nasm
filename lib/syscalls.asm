@@ -1,7 +1,11 @@
+%ifndef INCLUDE_SYSCALLS
+%define INCLUDE_SYSCALLS
+
+section .text
+
 ; exit syscall
 exit:
     mov rax, 60
-    mov rdi, 0
     syscall
 
 ; int open(string path, int mode)
@@ -59,3 +63,5 @@ brk:
     mov rax, 12
     syscall
     ret
+
+%endif

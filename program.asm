@@ -1,17 +1,28 @@
     global _start
-    section .note.GNU-stack noalloc noexec nowrite progbits
 
     section .data
-msg db `hello world\n`
+msg db `hello world 2\n`
 msg_len equ $ - msg
 
 
-    section .text
-
 %include 'lib/lib.asm'
 
+  section .text
+
 _start:
-    mov rdi, msg
-    mov rsi, msg_len
+    call alloc_init
+
+    mov rdi, 5 ; 4 bytes
+    call alloc
+    lea rdi, [rax]
+    mov byte [rdi], 'A'
+    mov byte [rdi + 1], 'B'
+    mov byte [rdi + 2], 'C'
+    mov byte [rdi + 3], 'D'
+    mov byte [rdi + 4], `\n`
+
+    mov rsi, 5
     call print_str
+
+    mov rdi, 0
     call exit
