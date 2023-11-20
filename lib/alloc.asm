@@ -3,34 +3,25 @@
 
 %include "lib/syscalls.asm"
 
+%define PROT_READ       0x1
+%define PROT_WRITE      0x2
+%define MAP_PRIVATE     0x02
+%define MAP_ANONYMOUS   0x20
+
     section .bss
-brk_current_addr: resq 1
 
     section .text
-
-; initializes the allocator
-; doing some needed setup
-; mainly getting the initial brk address
-alloc_init:
-    push rdi
-    mov rdi, 0
-    call brk
-    mov qword [brk_current_addr], rax
-    pop rdi
-    ret
 
 ; void* alloc(size_t bytes)
 ; returns a ptr to the allocated bytes on rax
 alloc:
-    push rdi ; push keeps a copy
-    push rsi
-    mov rsi, [brk_current_addr]
-    lea rdi, [rsi + rdi]
-    call brk
-    mov qword [brk_current_addr], rax
-    mov rax, rsi
-    pop rsi
-    pop rdi
+    mov rsi, rdi ; rdi has the bytes
+    xor rdi, rdi ; addr 0
+    mov rdx, PROT_READ|PROT_WRITE
+    mov r10, MAP_PRIVATE|MAP_ANONYMOUS
+    mov r8, -1
+    xor r9, r9
+    call mmap
     ret
 
 %endif
