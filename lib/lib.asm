@@ -4,6 +4,7 @@
 %include "lib/syscalls.asm"
 %include "lib/io.asm"
 %include "lib/alloc.asm"
-%include "lib/util.asm"
+%include "lib/math.asm"
+%include "lib/string.asm"
 
 %endif

@@ -2,7 +2,7 @@
 %define INCLUDE_ALLOC
 
 %include "lib/syscalls.asm"
-%include "lib/util.asm"
+%include "lib/math.asm"
 
 %define PROT_READ       0x1
 %define PROT_WRITE      0x2

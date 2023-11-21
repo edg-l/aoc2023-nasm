@@ -1,5 +1,5 @@
-%ifndef INCLUDE_UTIL
-%define INCLUDE_UTIL
+%ifndef INCLUDE_MATH
+%define INCLUDE_MATH
 
 ; rax is the arg, and it modifies rax
 next_pow_2:
