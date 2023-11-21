@@ -10,8 +10,14 @@ msg_len equ $ - msg
   section .text
 
 _start:
-    call alloc_init
+    mov rdi, rsp ; number of cli arguments
+    lea rsi, [rsp + 8] ; first arg (path)
+    call main
 
+; main(argc, argv)
+; rdi, rsi
+main:
+    call alloc_init
     mov rdi, 5 ; bytes
     call alloc
     lea rdi, [rax]
