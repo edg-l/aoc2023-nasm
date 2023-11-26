@@ -4,6 +4,9 @@
 msg db `hello world 2\n`
 msg_len equ $ - msg
 
+    section .bss
+str_buf resb 32
+
 
 %include 'lib/lib.asm'
 
@@ -19,8 +22,17 @@ _start:
 main:
     call alloc_init
 
-    mov rdi, [rsi]
-    call cstr_len
+    lea rdx, [str_buf]
+    mov rdi, 169
+    mov rsi, 16
+    call int_to_str
+    ; int int_to_str(int number, int base, buff)
+; returns length of str
+; rdi, rsi, rdx
+
+    lea rdi, [str_buf]
+    mov rsi, rax
+    call println
 
     mov rdi, rax
     call exit
